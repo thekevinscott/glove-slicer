@@ -2,6 +2,7 @@ import argparse
 import os
 import math
 import json
+import sys
 
 parser=argparse.ArgumentParser()
 
@@ -28,23 +29,27 @@ def getFilename(start, end):
     filename = filename[0].split('/').pop()
     return '%s/%s_%s_%s%s' % (args.target, filename, start, end, ext)
 
-manifest = {'files': [], 'chunk_size': args.chunk_size}
+manifest = {'files': {}, 'chunk_size': args.chunk_size}
 word_manifest = {}
 for i in range(chunks):
     start = i * chunk_size
     end = start + chunk_size
     filename = getFilename(start, end)
     ext = 'txt'
-    data = lines[start:end]
     words = []
-    for line in data:
+    for line in lines:
         words.append(line.split(' ')[0])
-    manifest['files'].append({'filename': filename, 'start': start})
+
+    data = '\n'.join(lines[start:end])
+    size = sys.getsizeof(data)
+    manifest['files'][start] = {'filename': filename, 'size': size}
     word_manifest[filename] = words
     file = open(filename, 'w')
-    file.write('\n'.join(data))
+    file.write(data)
 
 with open('%s/manifest.json' % args.target, 'w') as outfile:
-    json.dump(manifest, outfile)
+    manifest = json.dumps(manifest).encode('utf8')
+    outfile.write(manifest)
 with open('%s/word_manifest.json' % args.target, 'w') as outfile:
-    json.dump(word_manifest, outfile)
+    word_manifest = json.dumps(word_manifest).encode('utf8')
+    outfile.write(word_manifest)

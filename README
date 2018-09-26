@@ -3,12 +3,12 @@
 Downloads the [GLoVE word embeddings](https://nlp.stanford.edu/projects/glove/) and slices them into smaller chunks.
 
 ```
-python slice.py --embeddings glove.6B --chunk_size 5
+python slice.py --embeddings glove.6B --chunk_size 500 --target
+chunked_embeddings
 ```
 
-Datasets available:
+This will produce an output folder of `chunked_embeddings`, containing:
 
-* Wikipedia 2014 + Gigaword 5 (6B tokens, 400K vocab, uncased, 50d, 100d, 200d, & 300d vectors, 822 MB download): glove.6B.zip
-* Common Crawl (42B tokens, 1.9M vocab, uncased, 300d vectors, 1.75 GB download): glove.42B.300d.zip
-* Common Crawl (840B tokens, 2.2M vocab, cased, 300d vectors, 2.03 GB download): glove.840B.300d.zip
-* Twitter (2B tweets, 27B tokens, 1.2M vocab, uncased, 25d, 50d, 100d, & 200d vectors, 1.42 GB download): glove.twitter.27B.zip
+* a list of txt files with 500 lines each
+* a `manifest.json` detailing the chunk size and array of files with names and start indices
+* a `word_manifest.json` listing which words are in which file

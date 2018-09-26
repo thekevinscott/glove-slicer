@@ -3,8 +3,7 @@
 Downloads the [GLoVE word embeddings](https://nlp.stanford.edu/projects/glove/) and slices them into smaller chunks.
 
 ```
-python slice.py --embeddings glove.6B --chunk_size 500 --target
-chunked_embeddings
+python slice.py --embeddings glove.6B --chunk_size 500 --target chunked_embeddings
 ```
 
 This will produce an output folder of `chunked_embeddings`, containing:

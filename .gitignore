@@ -1,4 +1,4 @@
-# Byte-compiled / optimized / DLL files
+GjByte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
@@ -102,3 +102,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# data
+glove.6B
+glove.6B.zip
